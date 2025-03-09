@@ -1,8 +1,13 @@
 module github.com/xandervanderweken/Password
 
-go 1.21.3
+go 1.22.0
 
-require github.com/gin-gonic/gin v1.10.0
+toolchain go1.23.7
+
+require (
+	github.com/gin-gonic/gin v1.10.0
+	github.com/greencoda/confiq v1.3.5
+)
 
 require (
 	github.com/bytedance/sonic v1.11.6 // indirect

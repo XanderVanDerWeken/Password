@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/xandervanderweken/Password/internal/controllers"
@@ -13,7 +14,8 @@ func main() {
 
 	configureRouter(router, dependencies.PasswordController)
 
-	router.Run()
+	addr := ":" + strconv.Itoa(dependencies.ConfigObj.ServerPort)
+	router.Run(addr)
 }
 
 func configureRouter(router *gin.Engine, passwordController controllers.PasswordController) {
