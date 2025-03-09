@@ -5,33 +5,36 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/xandervanderweken/Password/internal/controllers"
-	"github.com/xandervanderweken/Password/internal/services"
+	"github.com/xandervanderweken/Password/internal/dependencies"
 )
 
 func main() {
-	// Get Instances
-	generatorService := services.NewGeneatorService()
-	passwordController := controllers.NewPasswordController(generatorService)
-
 	router := gin.Default()
 
-	configureRouter(router, passwordController)
+	configureRouter(router, dependencies.PasswordController)
 
 	router.Run()
 }
 
 func configureRouter(router *gin.Engine, passwordController controllers.PasswordController) {
-	router.GET("/ping", func(context *gin.Context) {
-		context.JSON(http.StatusOK, gin.H{
-			"message": "pong",
-		})
-	})
-
 	apiGroup := router.Group("/api")
 	{
+		apiGroup.GET("", apiInfo)
+
 		passwordGroup := apiGroup.Group("/passwords")
 		{
-			passwordGroup.POST("", passwordController.CreatePassword)
+			passwordGenerateGroup := passwordGroup.Group("/generate")
+			{
+				passwordGenerateGroup.POST("", passwordController.PostCreatePassword)
+				passwordGenerateGroup.GET("", passwordController.GetCreatePassword)
+			}
 		}
 	}
+}
+
+func apiInfo(context *gin.Context) {
+	context.JSON(http.StatusOK, gin.H{
+		"state":   "alive",
+		"version": "v1.0",
+	})
 }
