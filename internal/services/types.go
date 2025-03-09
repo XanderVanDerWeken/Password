@@ -1,5 +1,5 @@
 package services
 
 type GeneratorService interface {
-	CreateNewPassword() string
+	CreateNewPassword(length int, useNumbers bool, useSpecial bool) (string, error)
 }

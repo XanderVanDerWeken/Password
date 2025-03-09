@@ -19,9 +19,18 @@ func NewPasswordController(
 }
 
 func (c *passwordController) CreatePassword(context *gin.Context) {
-	password := c.generatorService.CreateNewPassword()
+	var newPasswordBody NewPassword
+	context.BindJSON(&newPasswordBody)
 
-	context.JSON(http.StatusCreated, PasswordDto{
-		Password: password,
-	})
+	password, err := c.generatorService.CreateNewPassword(newPasswordBody.Length, newPasswordBody.UseNumbers, newPasswordBody.UseSpecials)
+
+	if err != nil {
+		context.JSON(http.StatusBadRequest, ErrorDto{
+			Message: "Could not create Password",
+		})
+	} else {
+		context.JSON(http.StatusCreated, PasswordDto{
+			Password: password,
+		})
+	}
 }
