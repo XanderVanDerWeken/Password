@@ -17,17 +17,23 @@ func main() {
 }
 
 func configureRouter(router *gin.Engine, passwordController controllers.PasswordController) {
-	router.GET("/ping", func(context *gin.Context) {
-		context.JSON(http.StatusOK, gin.H{
-			"message": "pong",
-		})
-	})
-
 	apiGroup := router.Group("/api")
 	{
+		apiGroup.GET("", apiInfo)
+
 		passwordGroup := apiGroup.Group("/passwords")
 		{
-			passwordGroup.POST("", passwordController.CreatePassword)
+			passwordGenerateGroup := passwordGroup.Group("/generate")
+			{
+				passwordGenerateGroup.POST("", passwordController.CreatePassword)
+			}
 		}
 	}
+}
+
+func apiInfo(context *gin.Context) {
+	context.JSON(http.StatusOK, gin.H{
+		"state":   "alive",
+		"version": "v1.0",
+	})
 }
