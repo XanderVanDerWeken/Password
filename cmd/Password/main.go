@@ -5,17 +5,13 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/xandervanderweken/Password/internal/controllers"
-	"github.com/xandervanderweken/Password/internal/services"
+	"github.com/xandervanderweken/Password/internal/dependencies"
 )
 
 func main() {
-	// Get Instances
-	generatorService := services.NewGeneatorService()
-	passwordController := controllers.NewPasswordController(generatorService)
-
 	router := gin.Default()
 
-	configureRouter(router, passwordController)
+	configureRouter(router, dependencies.PasswordController)
 
 	router.Run()
 }
