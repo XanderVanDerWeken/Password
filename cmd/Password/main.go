@@ -25,7 +25,8 @@ func configureRouter(router *gin.Engine, passwordController controllers.Password
 		{
 			passwordGenerateGroup := passwordGroup.Group("/generate")
 			{
-				passwordGenerateGroup.POST("", passwordController.CreatePassword)
+				passwordGenerateGroup.POST("", passwordController.PostCreatePassword)
+				passwordGenerateGroup.GET("", passwordController.GetCreatePassword)
 			}
 		}
 	}

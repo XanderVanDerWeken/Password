@@ -17,5 +17,6 @@ type ErrorDto struct {
 }
 
 type PasswordController interface {
-	CreatePassword(context *gin.Context)
+	PostCreatePassword(context *gin.Context)
+	GetCreatePassword(context *gin.Context)
 }
