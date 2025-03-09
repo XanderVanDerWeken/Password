@@ -8,7 +8,8 @@ import (
 )
 
 type ConfigStruct struct {
-	ServerPort int `cfg:"serverPort"`
+	ServerPort       int    `cfg:"serverPort"`
+	ConnectionString string `cfg:"connectionString"`
 }
 
 func LoadConfig() ConfigStruct {
