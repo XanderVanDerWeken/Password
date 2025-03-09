@@ -12,8 +12,7 @@ type passwordController struct {
 	generatorService services.GeneratorService
 }
 
-func NewPasswordController(
-	generatorService services.GeneratorService) PasswordController {
+func NewPasswordController(generatorService services.GeneratorService) PasswordController {
 	return &passwordController{
 		generatorService: generatorService,
 	}

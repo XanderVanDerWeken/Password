@@ -20,3 +20,9 @@ type PasswordController interface {
 	PostCreatePassword(context *gin.Context)
 	GetCreatePassword(context *gin.Context)
 }
+
+type AccountController interface {
+	PostCreateAccount(context *gin.Context)
+	GetAccountByDomainName(context *gin.Context)
+	DeleteAccoundById(context *gin.Context)
+}
