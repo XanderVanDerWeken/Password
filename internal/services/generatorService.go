@@ -8,5 +8,5 @@ func NewGeneatorService() GeneratorService {
 }
 
 func (s *generatorService) CreateNewPassword() string {
-
+	return "password"
 }
